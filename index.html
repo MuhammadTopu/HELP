@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .video-container {
+            max-width: 640px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        video {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="hONE">SQL Installation for Windows</h1>
+    <div class="video-container">
+        <video id="video" controls>
+            <source id="videoSource" src="sample.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button onclick="playVideo()">Play</button>
+            <button onclick="pauseVideo()">Pause</button>
+            <button onclick="muteVideo()">Mute</button>
+            <button onclick="mac()">MAC</button>
+            <button onclick="Win()">Windows</button>
+            
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById("video");
+
+        function playVideo() {
+            video.play();
+        }
+
+        function pauseVideo() {
+            video.pause();
+        }
+
+        function muteVideo() {
+            video.muted = !video.muted;
+        }
+
+        function mac() {
+            const videoSource = document.getElementById("videoSource");
+            videoSource.src = "sample2.mp4"; 
+            video.load();
+            const h1 =  document.getElementById("hONE");
+            h1.innerHTML = "SQL Installation for MAC"
+        }
+        function Win() {
+            const videoSource = document.getElementById("videoSource");
+            videoSource.src = "sample.mp4"; 
+            video.load();
+            const h1 =  document.getElementById("hONE");
+            h1.innerHTML = "SQL Installation for Windows"
+        }
+    </script>
+</body>
+</html>
