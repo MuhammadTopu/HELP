@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://player.vimeo.com; frame-src https://player.vimeo.com; style-src 'self';">
     <title>SQL Installation Guide</title>
     <style>
         body {
@@ -62,9 +63,51 @@
         <button onclick="seekBackward()">⏪ Backward 10s</button>
         <button onclick="seekForward()">⏩ Forward 10s</button>
         <button onclick="mac()">MAC</button>
-        <button onclick="win()">Windows</button>
+        <button onclick="toggle()" id="togglee">Windows</button>
     </div>
 
-    <script src="scripts.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+        const iframe = document.getElementById("videoFrame");
+        const player = new Vimeo.Player(iframe);
+        const h1 = document.getElementById("hONE");
+
+        function playVideo() {
+            player.play();
+        }
+
+        function pauseVideo() {
+            player.pause();
+        }
+
+        function muteVideo() {
+            player.setVolume(0);
+        }
+
+        function unmuteVideo() {
+            player.setVolume(1);
+        }
+        function seekForward() {
+            player.getCurrentTime().then(time => {
+                player.setCurrentTime(time + 10);
+            });
+        }
+
+        function seekBackward() {
+            player.getCurrentTime().then(time => {
+                player.setCurrentTime(Math.max(time - 10, 0)); // Prevent negative time
+            });
+        }
+
+        function mac() {
+            iframe.src = "https://player.vimeo.com/video/1056405488?h=870df0314f&background=1";
+            h1.innerHTML = "SQL Installation for MAC";
+        }
+
+        function Win() {
+            iframe.src = "https://player.vimeo.com/video/1056405203?h=86912f7c0d&background=1";
+            h1.innerHTML = "SQL Installation for Windows";
+        }
+    </script>
 </body>
 </html>
