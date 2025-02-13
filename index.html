@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Video Player</title>
+    <title>SQL Installation Guide</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,9 +18,11 @@
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
-        video {
+        iframe {
             width: 100%;
+            height: 360px;
             border-radius: 10px;
         }
         .controls {
@@ -42,49 +44,68 @@
 </head>
 <body>
     <h1 id="hONE">SQL Installation for Windows</h1>
+    
     <div class="video-container">
-        <video id="video" controls>
-            <source id="videoSource" src="sample.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="controls">
-            <button onclick="playVideo()">Play</button>
-            <button onclick="pauseVideo()">Pause</button>
-            <button onclick="muteVideo()">Mute</button>
-            <button onclick="mac()">MAC</button>
-            <button onclick="Win()">Windows</button>
-            
-        </div>
+        <iframe id="videoFrame"
+            src="https://player.vimeo.com/video/1056405203?h=86912f7c0d&background=1" 
+            frameborder="0"
+            allow="autoplay; fullscreen; encrypted-media"
+            title="SQL Installation Video">
+        </iframe>
     </div>
 
+    <div class="controls">
+        <button onclick="playVideo()">Play</button>
+        <button onclick="pauseVideo()">Pause</button>
+        <button onclick="muteVideo()">Mute</button>
+        <button onclick="unmuteVideo()">Unmute</button>
+        <button onclick="seekBackward()">⏪ Backward 10s</button>
+        <button onclick="seekForward()">⏩ Forward 10s</button>
+        <button onclick="mac()">MAC</button>
+        <button onclick="toggle()" id="togglee">Windows</button>
+    </div>
+
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
-        const video = document.getElementById("video");
+        const iframe = document.getElementById("videoFrame");
+        const player = new Vimeo.Player(iframe);
+        const h1 = document.getElementById("hONE");
 
         function playVideo() {
-            video.play();
+            player.play();
         }
 
         function pauseVideo() {
-            video.pause();
+            player.pause();
         }
 
         function muteVideo() {
-            video.muted = !video.muted;
+            player.setVolume(0);
+        }
+
+        function unmuteVideo() {
+            player.setVolume(1);
+        }
+        function seekForward() {
+            player.getCurrentTime().then(time => {
+                player.setCurrentTime(time + 10);
+            });
+        }
+
+        function seekBackward() {
+            player.getCurrentTime().then(time => {
+                player.setCurrentTime(Math.max(time - 10, 0)); // Prevent negative time
+            });
         }
 
         function mac() {
-            const videoSource = document.getElementById("videoSource");
-            videoSource.src = "sample2.mp4"; 
-            video.load();
-            const h1 =  document.getElementById("hONE");
-            h1.innerHTML = "SQL Installation for MAC"
+            iframe.src = "https://player.vimeo.com/video/1056405488?h=870df0314f&background=1";
+            h1.innerHTML = "SQL Installation for MAC";
         }
+
         function Win() {
-            const videoSource = document.getElementById("videoSource");
-            videoSource.src = "sample.mp4"; 
-            video.load();
-            const h1 =  document.getElementById("hONE");
-            h1.innerHTML = "SQL Installation for Windows"
+            iframe.src = "https://player.vimeo.com/video/1056405203?h=86912f7c0d&background=1";
+            h1.innerHTML = "SQL Installation for Windows";
         }
     </script>
 </body>
